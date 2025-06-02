@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>US Airport Map</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <style>
+    #map {
+      height: 100vh;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+<h2 style="text-align:center;">Interactive US Airport Map</h2>
+<div id="map"></div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+  // Initialize the map
+  var map = L.map('map').setView([37.8, -96], 4); // Centered on US
+
+  // Add OpenStreetMap tiles
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 18,
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+
+  // Airport Data
+  var airports = [
+    {
+      code: "SGR",
+      name: "Sugarland Airport",
+      address: "12888 S Texas 6, Sugar Land, TX 77498",
+      coords: [29.6224, -95.6565]
+    },
+    {
+      code: "OPF",
+      name: "Opa Locka Airport",
+      address: "14201 NW 42nd Ave, Opa-locka, FL 33054",
+      coords: [25.907, -80.2782]
+    },
+    {
+      code: "BNA",
+      name: "Nashville Airport",
+      address: "1 Terminal Dr, Nashville, TN 37214",
+      coords: [36.1263, -86.6774]
+    },
+    {
+      code: "DVT",
+      name: "Deer Valley Airport",
+      address: "702 W Deer Valley Rd, Phoenix, AZ 85027",
+      coords: [33.6883, -112.083]
+    }
+  ];
+
+  // Add markers
+  airports.forEach(function(airport) {
+    L.marker(airport.coords).addTo(map)
+      .bindPopup(`<strong>${airport.code}</strong>: ${airport.name}<br>${airport.address}`);
+  });
+</script>
+
+</body>
+</html>
